@@ -1,0 +1,4 @@
+fastapi
+latex
+pypdf2
+openai
