@@ -8,6 +8,8 @@ export default function App() {
   const [finalizeButtonLoading, setFinalizeButtonLoading] = useState(false);
   const [finalizeButtonDisabled, setFinalizeButtonDisabled] = useState(false);
   const [files, setFiles] = useState([]);
+  const [fetchedFile, setFetchedFile] = useState(null);
+
 
   const onDrop = useCallback(acceptedFiles => {
     // Append new files to the existing files
@@ -44,6 +46,32 @@ export default function App() {
     }
   };
 
+  const handleFetchFile = async () => {
+    try {
+      // Make a GET request
+      const response = await fetch('http://your-server-url.com/fetch-file', {
+        method: 'GET',
+      });
+  
+      if (response.ok) {
+        const blob = await response.blob();
+  
+        // Create a new File object from the Blob
+        const NewFIle = new File([blob], 'fetchedFile.pdf', {
+          type: 'application/pdf',
+        });
+
+        setFetchedFile(NewFIle);
+
+        console.log('File fetched successfully');
+      } else {
+        console.error('Failed to fetch file');
+      }
+    } catch (error) {
+      console.error('An error occurred while fetching the file', error);
+    }
+  };
+
   return (
     <>
       <h1>Upload Your PDFs</h1>
@@ -65,6 +93,18 @@ export default function App() {
       >
         {finalizeButtonLoading ? 'Loading...' : 'Finalize'}
       </button>
+
+      {fetchedFile && (
+        <div>
+          <a
+            href={URL.createObjectURL(fetchedFile)}
+            download={fetchedFile.name}
+          >
+            Download Fetched File
+          </a>
+        </div>
+      )}
+
     </>
   );
 }
