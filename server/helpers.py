@@ -22,7 +22,7 @@ class ExamGenerator:
                                 "latex document, just simply away for another 'continue' message. " \
                                 "Do not output anything except LaTex code."
         self.client = OpenAI(
-            api_key=os.environ['OPENAI_API_KEY'],
+            api_key = ''
         )
 
     def generate_exam(self, files: list[UploadFile]):

@@ -36,7 +36,7 @@ export default function App() {
       });
 
       // Make a POST request to your Flask server
-      const response = await fetch('http://your-server-url.com/upload', {  //////// ADD LNK HERE to send files to server and process
+      const response = await fetch('http://127.0.0.1:5000/upload', {  //////// ADD LNK HERE to send files to server and process
         method: 'POST',
         body: formData,
       });
@@ -55,7 +55,7 @@ export default function App() {
     try {
       // Make a GET request
       
-      const response = await fetch('http://your-server-url.com/fetch-file', { //////// ADD link here that sends files back to front end for downloading
+      const response = await fetch('http://127.0.0.1:5000/upload', { //////// ADD link here that sends files back to front end for downloading
         method: 'GET',
       });
   
