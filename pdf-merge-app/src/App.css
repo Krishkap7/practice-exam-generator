@@ -41,3 +41,13 @@ button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container button {
+  margin: 0 5px;
+}

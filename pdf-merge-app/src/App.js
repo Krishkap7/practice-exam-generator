@@ -7,6 +7,11 @@ export default function App() {
   const finalizeButtonRef = useRef(null);
   const [finalizeButtonLoading, setFinalizeButtonLoading] = useState(false);
   const [finalizeButtonDisabled, setFinalizeButtonDisabled] = useState(false);
+
+  const downButtonRef = useRef(null);
+  const [downButtonLoading, setDownButtonLoading] = useState(false);
+  const [downButtonDisabled, setDownButtonDisabled] = useState(false);
+
   const [files, setFiles] = useState([]);
   const [fetchedFile, setFetchedFile] = useState(null);
 
@@ -31,7 +36,7 @@ export default function App() {
       });
 
       // Make a POST request to your Flask server
-      const response = await fetch('http://your-server-url.com/upload', {  //////// ADD LNK HERE
+      const response = await fetch('http://your-server-url.com/upload', {  //////// ADD LNK HERE to send files to server and process
         method: 'POST',
         body: formData,
       });
@@ -49,7 +54,7 @@ export default function App() {
   const handleFetchFile = async () => {
     try {
       // Make a GET request
-      const response = await fetch('http://your-server-url.com/fetch-file', {
+      const response = await fetch('http://your-server-url.com/fetch-file', { //////// ADD link here that sends files back to front end for downloading
         method: 'GET',
       });
   
@@ -86,13 +91,23 @@ export default function App() {
           ))}
         </ul>
       )}
-      <button
-        ref={finalizeButtonRef}
-        disabled={finalizeButtonLoading || finalizeButtonDisabled}
-        onClick={sendFilesToServer}
-      >
-        {finalizeButtonLoading ? 'Loading...' : 'Finalize'}
-      </button>
+      <div class="button-container">
+        <button
+          ref={finalizeButtonRef}
+          disabled={finalizeButtonLoading || finalizeButtonDisabled}
+          onClick={sendFilesToServer}
+        >
+          {finalizeButtonLoading ? 'Loading...' : 'Submit'}
+        </button>
+
+        <button
+          ref={downButtonRef}
+          disabled={downButtonLoading || downButtonDisabled}
+          onClick={handleFetchFile}
+        >
+          {downButtonLoading ? 'Loading...' : 'Download'}
+        </button>
+        </div>
 
       {fetchedFile && (
         <div>
