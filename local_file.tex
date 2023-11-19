@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{enumitem}
+
+\begin{document}
+\title{EECS 281: Data Structures and Algorithms - Practice Exam}
+\date{}
+\maketitle
+
+\section*{Questions}
+
+\paragraph{Question 1: Multiple Choice}
+Which of the following recurrence relations can one solve by applying the Master Theorem?
+\begin{enumerate}[label=\Alph*.]
+\item $T(n) = \frac{1}{2}T(\frac{n}{4}) + \Theta(n)$
+\item $T(n) = T(\frac{n}{2}) + \Theta(n\log_{2}4)$
+\item $T(n) = 4T(n - 1) + \Theta(1)$
+\item $T(n) = 4T(\frac{n}{2}) + 2T(\frac{n}{4}) + \Theta(n^{2})$
+\item None of the above.
+\end{enumerate}
+
+\paragraph{Question 2: Records}
+Consider the following function:
+\begin{verbatim}
+    int func( double m,double n) {
+    	int c = 0;
+    	while (m > n) {
+    		m = m/2;
+    		for (int i = 1; i < n; i *=3;) {
+    			++c;
+    		}
+    	}
+    	return c;
+    }
+\end{verbatim}
+What best characterizes the running time of a call to this function?
+
+\paragraph{Question 3: Recursion}
+Consider the following recurrence relation:
+$T(n) = 
+\begin{cases} 
+      c_{0} & \text{if } n = 1 \\
+      nT(n -1) + c & \text{if } n > 1 
+   \end{cases}
+$
+What is the complexity of $T(n)$?
+
+\paragraph{Question 4: Linked Lists}
+For which operation does a doubly linked list outperform a singly linked list? Assume the worst case, and that neither version of the linked list contains a tail pointer.
+\begin{enumerate}[label=\Alph*.]
+\item Accessing element at random index
+\item Appending an element to the end
+\item Deleting an element given a pointer to the node that contains the element
+\item Swapping two elements that are not next to each other, given pointers to the two nodes
+\end{enumerate}
+
+\paragraph{Question 5: Contiguous Containers}
+Suppose we implement a vector with an underlying dynamic array and a special push\_back() method. This push\_back() method works normally when the array is not full. When the array fills up, the push\_back() method creates a new dynamic array with space for 100 more elements than the old array, copies the elements from the old array to the new array, and then deletes the old array. What is the amortized complexity of this special push\_back() operation?
+
+\end{document}
