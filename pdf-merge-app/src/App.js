@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import './App.css'; // Add this line at the top of your file
+import './App.css'; 
 
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
 
   const onDrop = useCallback(acceptedFiles => {
     // Append new files to the existing files
-    setFiles(prevFiles => [...prevFiles, ...acceptedFiles]);
+    setFiles(prevFiles => [...prevFiles, ...acceptedFiles]); // combines prev Files with input acceptedFiles to re create prevFiles
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -20,10 +20,33 @@ export default function App() {
     multiple: true
   });
 
-  // Rest of your component logic...
+  const sendFilesToServer = async () => {
+    try {
+      // Create a FormData object to send the files
+      const formData = new FormData();
+      files.forEach((file, index) => {
+        formData.append(`file${index}`, file); //ccreates formData() and sends it over to Flas
+      });
+
+      // Make a POST request to your Flask server
+      const response = await fetch('http://your-server-url.com/upload', {  //////// ADD LNK HERE
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log('Files uploaded successfully');
+      } else {
+        console.error('Failed to upload files');
+      }
+    } catch (error) {
+      console.error('An error occurred', error);
+    }
+  };
 
   return (
     <>
+      <h1>Upload Your PDFs</h1>
       <div {...getRootProps()} className="dropzone">
         <input {...getInputProps()} />
         <p>Drag and drop PDF files here, or click to select files</p>
@@ -38,6 +61,7 @@ export default function App() {
       <button
         ref={finalizeButtonRef}
         disabled={finalizeButtonLoading || finalizeButtonDisabled}
+        onClick={sendFilesToServer}
       >
         {finalizeButtonLoading ? 'Loading...' : 'Finalize'}
       </button>
