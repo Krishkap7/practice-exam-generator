@@ -29,8 +29,8 @@ export default function App() {
 
   const sendFilesToServer = async () => {
     try {
-      // Create a FormData object to send the files
-      const formData = new FormData();
+      // Create a FormData object to send the files only thing that might need to be edeited to account for Data transfer
+      const formData = new FormData(); 
       files.forEach((file, index) => {
         formData.append(`file${index}`, file); //ccreates formData() and sends it over to Flas
       });
@@ -54,6 +54,7 @@ export default function App() {
   const handleFetchFile = async () => {
     try {
       // Make a GET request
+      
       const response = await fetch('http://your-server-url.com/fetch-file', { //////// ADD link here that sends files back to front end for downloading
         method: 'GET',
       });
@@ -62,6 +63,7 @@ export default function App() {
         const blob = await response.blob();
   
         // Create a new File object from the Blob
+        // Create a File object to accept the file; only thing that might need to be edeited to account for Data transfer
         const NewFIle = new File([blob], 'fetchedFile.pdf', {
           type: 'application/pdf',
         });
